@@ -1,13 +1,34 @@
 package Model;
 
 import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.ServletException;
-import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Date;
 
 public class Product extends HttpServlet {
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.getWriter().write("Hello, World!");
+    private int productNr;
+    private String name;
+    private String category;
+    private Date expirationDate;
+    private int stock;
+    private double price;
+    private static ArrayList<Product> products = new ArrayList<>();
+
+    public Product(String name, int productNr, String category, Date expirationDate, int stock, double price) {
+        this.name = name;
+        this.productNr = productNr;
+        this.category = category;
+        this.expirationDate = expirationDate;
+        this.stock = stock;
+        this.price = price;
+        products.add(this);
+        System.out.println("Product added to list");
+    }
+
+    public static ArrayList<Product> getProducts() {
+        return products;
+    }
+
+    public String getName() {
+        return name;
     }
 }
