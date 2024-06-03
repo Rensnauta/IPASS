@@ -1,4 +1,4 @@
-package Model;
+package server.website.Model;
 
 import javax.servlet.http.HttpServlet;
 import java.util.ArrayList;
@@ -30,5 +30,24 @@ public class Product extends HttpServlet {
 
     public String getName() {
         return name;
+    }
+    public int getProductNr() {
+        return productNr;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public Date getExpirationDate() {
+        return expirationDate;
+    }
+
+    public int getStock() {
+        return stock;
+    }
+
+    public double getPrice() {
+        return price;
     }
 }
