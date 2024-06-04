@@ -21,7 +21,6 @@ public class Product extends HttpServlet {
         this.stock = stock;
         this.price = price;
         products.add(this);
-        System.out.println("Product added to list");
     }
 
     public static ArrayList<Product> getProducts() {
