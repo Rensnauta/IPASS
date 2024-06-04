@@ -5,7 +5,8 @@ build:{
 sourcemap: true,
 rollupOptions:{
 input: {
-main: resolve(__dirname, 'index.html')
+main: resolve(__dirname, 'index.html'),
+    stock: resolve(__dirname, 'stock.html')
 // to add more html pages....see FEP1 boilerplate section build&deploy
 },
 },
