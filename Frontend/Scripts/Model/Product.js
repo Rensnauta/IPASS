@@ -6,6 +6,5 @@ export class Product {
             this.stock = stock;
             this.category = category;
             this.price = price;
-            console.log(this)
         }
 }
