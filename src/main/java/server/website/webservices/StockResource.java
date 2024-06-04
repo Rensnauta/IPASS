@@ -17,12 +17,12 @@ public class StockResource {
         JsonObjectBuilder builder = Json.createObjectBuilder();
         ArrayList<Product> products = Product.getProducts();
         for (Product product : products) {
-            builder.add("Product", product.getName());
-            builder.add("ProductNr", product.getProductNr());
-            builder.add("Category", product.getCategory());
-            builder.add("ExpirationDate", product.getExpirationDate().toString());
-            builder.add("Stock", product.getStock());
-            builder.add("Price", product.getPrice());
+            builder.add("productName", product.getName());
+            builder.add("productNr", product.getProductNr());
+            builder.add("category", product.getCategory());
+            builder.add("expirationDate", product.getExpirationDate().toString());
+            builder.add("stock", product.getStock());
+            builder.add("price", product.getPrice());
             arrayBuilder.add(builder);
         }
         return Response.ok(arrayBuilder.build().toString()).build();
