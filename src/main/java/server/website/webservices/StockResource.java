@@ -12,7 +12,6 @@ public class StockResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getProducts() {
-        System.out.println("Getting products");
         JsonArrayBuilder arrayBuilder = Json.createArrayBuilder();
         JsonObjectBuilder builder = Json.createObjectBuilder();
         ArrayList<Product> products = Product.getProducts();
