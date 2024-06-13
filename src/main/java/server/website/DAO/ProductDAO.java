@@ -34,7 +34,6 @@ public class ProductDAO {
                 int stock = rs.getInt("stock");
                 String category = rs.getString("category");
                 double price = rs.getDouble("price");
-                System.out.println("data retrieved");
                 new Product(name, productNr, category, expirationDate, stock, price);
             }
             rs.close();
