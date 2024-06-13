@@ -1,2 +1,4 @@
-package server.website.Model;public class LogonRequest {
+package server.website.Model;
+
+public record LogonRequest(String username, String password) {
 }
