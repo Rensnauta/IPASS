@@ -27,7 +27,7 @@
             body: JSON.stringify(jsonRequestBody)})
         .then(function (response) {
             if(response.ok) {
-                document.getElementById("messagelabel").innerHTML = ''               
+                document.location.href = 'homepage.html'
                 return response.json()
             }
             else if(response.status === 401) {
