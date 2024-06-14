@@ -1,0 +1,49 @@
+body {
+    background-color: #252727;
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.table-container {
+    text-align: center;
+
+    border: 2px solid #454646;
+    width: 900px; 
+    height: auto; 
+    
+    position: absolute;
+    top:0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    
+    margin: auto;
+}
+
+#searchbox {
+    width: 30%;
+    padding: 5px 0;
+    margin: 15px 0;
+}
+
+table {
+    position: relative;
+    align-self: center;
+    border-collapse: collapse;
+    margin: 1rem auto;
+}
+
+td {
+    width: 100px;
+    height: 50px;
+    text-align: center;
+}
+
+td, th {
+    text-align: left;
+    text-transform: capitalize;
+}
+
+tr:nth-child(even) {
+    background-color: #454646;
+  }
