@@ -1,5 +1,6 @@
 package server.website.webservices;
 
+import server.website.DAO.ProductDAO;
 import server.website.Model.Product;
 import javax.json.*;
 import javax.ws.rs.*;
@@ -12,6 +13,8 @@ public class StockResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getProducts() {
+        ProductDAO.retrieveProducts();
+        System.out.println(Product.getProductsSize());
         JsonArrayBuilder arrayBuilder = Json.createArrayBuilder();
         JsonObjectBuilder builder = Json.createObjectBuilder();
         ArrayList<Product> products = Product.getProducts();
