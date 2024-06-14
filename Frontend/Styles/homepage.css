@@ -26,3 +26,8 @@ button {
     font-weight: bold;
     color: white;
 }
+
+button:hover {
+    border-color: white;
+    opacity: 80%;
+}
