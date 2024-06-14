@@ -40,17 +40,26 @@ class StockController {
 
   // Loop through all table rows, and hide those who don't match the search query
   for (i = 0; i < tr.length; i++) {
-    td = tr[i].getElementsByTagName("td")[1];
-    if (td) {
-      txtValue = td.textContent || td.innerText;
-      if (txtValue.toUpperCase().indexOf(filter) > -1) {
-        tr[i].style.display = "";
-      } else {
-        tr[i].style.display = "none";
+    td = tr[i].getElementsByTagName("td");
+    let found = false; // Flag to indicate if the text was found in any of the cells
+    for (let j = 0; j < td.length; j++) { // Iterate through each cell
+      let currentTd = td[j];
+      if (currentTd) {
+        txtValue = currentTd.textContent || currentTd.innerText;
+        // Check if the cell contains an <a> element and include its text content in the search
+        let links = currentTd.getElementsByTagName("a");
+        for (let k = 0; k < links.length; k++) {
+          txtValue += " " + (links[k].textContent || links[k].innerText);
+        }
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+          found = true;
+          break; // Exit the loop since we found a match
+        }
       }
     }
+    tr[i].style.display = found ? "" : "none"; // Show or hide the row based on the search result
   }
-}
+    }
 }
 
 
