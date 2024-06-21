@@ -1,9 +1,9 @@
 export class StockView {
-    static drawTable(products){
+    drawTable(products){
         let tableHTML = '<table id = "stockTable"><tr><th>Productnumber</th><th>Product Name</th><th>Expiration Date</th><th>Stock</th><th>Category</th><th>Price</th></tr>';
     products.forEach(item => {
         tableHTML += `<tr>
-            <td data-cell="productnr"> <a href="homepage.html">${item.productNr}</a></td>
+            <td data-cell="productnr"> <a href="productchange.html?productNumber=${item.productNr}">${item.productNr}</a></td>
             <td data-cell="productname">${item.productName}</td>
             <td data-cell="expirationdate">${item.expirationDate}</td>
             <td data-cell="stock">${item.stock}</td>

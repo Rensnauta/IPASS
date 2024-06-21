@@ -2,6 +2,7 @@
 /* eslint-disable max-statements */
 
 
+import { Product } from "../Model/Product";
 import { StockView } from "../View/StockView"
 const fetchurl = "http://localhost:8080/api/stock",
       stockview = new StockView();
@@ -21,6 +22,9 @@ class StockController {
             .then(jsonData => {
                 productData = jsonData
                 stockview.drawTable(productData)
+                productData.forEach(item => {
+                    new Product(item.productNr, item.productName, item.expirationDate, item.stock, item.category, item.price)
+                })
             })
             .catch(error => {
                     console.log("Failed to fetch products:", error)
