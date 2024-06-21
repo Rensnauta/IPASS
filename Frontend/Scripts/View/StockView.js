@@ -1,5 +1,5 @@
 export class StockView {
-    drawTable(products){
+    static drawTable(products){
         let tableHTML = '<table id = "stockTable"><tr><th>Productnumber</th><th>Product Name</th><th>Expiration Date</th><th>Stock</th><th>Category</th><th>Price</th></tr>';
     products.forEach(item => {
         tableHTML += `<tr>
