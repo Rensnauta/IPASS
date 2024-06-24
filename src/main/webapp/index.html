@@ -1,14 +1,48 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite App</title>
-  </head>
-  <body>
-    <div id="app"></div>
-  <p>Hello</p>
-  <a href="stock.html">View products in stock</a>
-  </body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+  <link rel="stylesheet" crossorigin href="/assets/main-BYIgpUkI.css">
+</head>
+<body>
+    <div class="container">
+    <form id="loginform">
+        <label for="username">Username</label> <br>
+        <input type="email" name="username" placeholder="Enter your username" id="username"><br>
+        <label for="password">Password</label> <br>
+        <input type="password" name="password" placeholder="Enter your password" id="password"><br>
+        <input type="button" value="login" id="login">
+        <label id="messagelabel"></label>
+    </form>
+    </div>
+    <script>
+        function login() {
+        let formData = new FormData(document.querySelector("#loginform"))
+        let jsonRequestBody = {}
+        formData.forEach((value, key) => jsonRequestBody[key] = value)
+        console.log(JSON.stringify(jsonRequestBody))
+        fetch("http://localhost:8080/api/authentication", {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json'
+            }, 
+            body: JSON.stringify(jsonRequestBody)})
+        .then(function (response) {
+            if(response.ok) {
+                document.location.href = 'homepage.html'
+                return response.json()
+            }
+            else if(response.status === 401) {
+                document.getElementById("messagelabel").innerHTML = 'Incorrect username/password'
+            }
+            
+        })
+        .then(myJson => window.sessionStorage.setItem("myJWT", myJson.JWT))
+        .catch(error => console.error(error));
+        }
+        document.querySelector("#login").addEventListener("click", login)
+    </script>
+</body>
 </html>

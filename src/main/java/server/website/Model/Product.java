@@ -30,6 +30,7 @@ public class Product extends HttpServlet {
     public String getName() {
         return name;
     }
+
     public int getProductNr() {
         return productNr;
     }
@@ -44,6 +45,31 @@ public class Product extends HttpServlet {
 
     public String getCategory() {
         return categoryId;
+    }
+
+    public void setStock(int stock) {
+        this.stock = stock;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public void setExpirationDate(Date expirationDate) {
+        this.expirationDate = expirationDate;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public static Product getProductByProductNr(int productNr) {
+        for (Product product : products) {
+            if (product.getProductNr() == productNr) {
+                return product;
+            }
+        }
+        return null;
     }
 
     public static Product getOrCreateProduct(String name, int productNr, int category, Date expirationDate, int stock, double price) {
