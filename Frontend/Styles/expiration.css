@@ -1,0 +1,22 @@
+.container {
+    width: 500px;
+    height: 500px;
+    border: 2px;
+    border-color: #454646;
+    padding: 20px;
+}
+
+label {
+    text-transform: capitalize;
+}
+
+button {
+    width: 100%;
+    padding: 10px 0;
+    margin: 5px 0;
+    border-color: #454646;
+    background-color: #58A4B0;
+    text-transform: capitalize;
+    font-weight: bold;
+    color: white;
+}

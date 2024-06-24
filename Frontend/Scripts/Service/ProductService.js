@@ -28,8 +28,6 @@ export class ProductService {
             }
     
             const responseData = await response.json();
-            console.log('Success:', responseData);
-            // Handle success response
         } catch (error) {
             console.error('Error:', error);
             // Handle errors here
