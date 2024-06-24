@@ -4,16 +4,16 @@ import org.json.JSONObject;
 import server.website.DAO.ProductDAO;
 import server.website.Model.Product;
 
-import javax.json.Json;
-import javax.json.JsonObject;
-import javax.json.JsonObjectBuilder;
-import javax.json.JsonReader;
+import javax.json.*;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
 import java.io.StringReader;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
+
+import static server.website.DAO.ProductDAO.getExpiredOrExpiringProducts;
 
 @Path("/products")
 public class ProductResource {
@@ -43,7 +43,6 @@ public class ProductResource {
     public Response updateProduct(String jsonString) {
         try (JsonReader jsonReader = Json.createReader(new StringReader(jsonString))) {
             JsonObject jsonObject = jsonReader.readObject();
-            System.out.println(jsonObject.toString());
             int productNr = Integer.parseInt(jsonObject.getString("productNr"));
             Product product = Product.getProductByProductNr(productNr);
             if (product != null) {
@@ -63,4 +62,28 @@ public class ProductResource {
             throw new RuntimeException(e);
         }
     }
+
+    @Path("expiring")
+    @GET
+    @Produces("application/json")
+    public Response getExpiringProducts() {
+        List<Product> expiringProducts = ProductDAO.getExpiredOrExpiringProducts();
+        JsonObjectBuilder builder = Json.createObjectBuilder();
+        JsonArrayBuilder jab = Json.createArrayBuilder();
+        for (Product product : expiringProducts) {
+            builder.add("productName", product.getName());
+            builder.add("productNr", product.getProductNr());
+            builder.add("category", product.getCategory());
+            builder.add("expirationDate", product.getExpirationDate().toString());
+            builder.add("stock", product.getStock());
+            builder.add("price", product.getPrice());
+            jab.add(builder);
+        }
+        return Response.ok(jab.build().toString()).build();
+    }
+
+    @Path("expired")
+    @POST
+    @Consumes("application/json")
+
 }
