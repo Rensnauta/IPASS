@@ -23,7 +23,6 @@ public class CategoryDAO {
                 int Id = rs.getInt("id");
                 String name = rs.getString("name");
                 new Category(Id, name);
-                System.out.println("Category added" + Id + name);
             }
             rs.close();
             st.close();
