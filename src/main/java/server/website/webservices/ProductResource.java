@@ -1,7 +1,6 @@
 package server.website.webservices;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import org.json.JSONArray;
 import org.json.JSONObject;
 import server.website.DAO.ProductDAO;
 import server.website.Model.Product;
@@ -12,7 +11,6 @@ import javax.ws.rs.core.Response;
 import java.io.StringReader;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -112,6 +110,31 @@ public class ProductResource {
             return Response.status(Response.Status.BAD_REQUEST).entity("Invalid JSON").build();
         } catch (ParseException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    @Path("add")
+    @POST
+    @Consumes("application/json")
+    public Response addProduct(JsonNode json) {
+        String name = json.get("productName").asText();
+        int productNr = json.get("productNr").asInt();
+        int category = json.get("category").asInt();
+        String expirationDate = json.get("expirationDate").asText();
+        int stock = json.get("stock").asInt();
+        double price = json.get("price").asDouble();
+        if (Product.productExists(productNr, name)) {
+            return Response.status(438).entity("Product already exists").build();
+        }
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            Date date = formatter.parse(expirationDate);
+            Product product = Product.getOrCreateProduct(name, productNr, category, date, stock, price);
+            ProductDAO.addProduct(product);
+            return Response.ok().build();
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return Response.status(400).entity("Invalid date format").build();
         }
     }
 }

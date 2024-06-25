@@ -29,4 +29,17 @@ public class Category {
         }
         return "Unknown category";
     }
+
+    public static int getCategoryIdByName(String name) {
+        for (Category category : categories) {
+            if (category.getName().equals(name)) {
+                return category.getId();
+            }
+        }
+        return -1;
+    }
+
+    public static ArrayList<Category> getCategories() {
+        return categories;
+    }
 }

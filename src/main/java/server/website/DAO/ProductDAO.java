@@ -4,10 +4,7 @@ package server.website.DAO;
 import server.website.Model.Product;
 import server.website.utils.DataSourceProvider;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -96,6 +93,32 @@ public class ProductDAO {
             }
         }
         return products;
+    }
+
+    public static void addProduct(Product product) {
+        Connection con = null;
+        try {
+            con = DataSourceProvider.getDataSource().getConnection();
+            PreparedStatement st = con.prepareStatement("INSERT INTO productdata (productname, productnr, category, expirationdate, stock, price) VALUES (?, ?, ?, ?, ?, ?)");
+            st.setString(1, product.getName());
+            st.setInt(2, product.getProductNr());
+            st.setInt(3, product.getCategoryId());
+            st.setDate(4, new java.sql.Date(product.getExpirationDate().getTime()));
+            st.setInt(5, product.getStock());
+            st.setDouble(6, product.getPrice());
+            st.executeUpdate();
+            st.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        } finally {
+            if (con != null) {
+                try {
+                    con.close();
+                } catch (Exception ignore) {
+                }
+            }
+        }
     }
 }
 

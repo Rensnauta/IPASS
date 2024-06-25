@@ -72,6 +72,11 @@ public class Product extends HttpServlet {
         return null;
     }
 
+    public int getCategoryId() {
+        String categoryName = this.categoryId;
+        return Category.getCategoryIdByName(categoryName);
+    }
+
     public static Product getOrCreateProduct(String name, int productNr, int category, Date expirationDate, int stock, double price) {
         for (Product product : products) {
             if (product.getProductNr() == productNr) {
@@ -81,7 +86,14 @@ public class Product extends HttpServlet {
         return new Product(name, productNr, category, expirationDate, stock, price);
     }
 
-
+    public static boolean productExists(int productNr, String name) {
+        for (Product product : products) {
+            if (product.getProductNr() == productNr || product.getName().equals(name)) {
+                return true;
+            }
+        }
+        return false;
+    }
 
     public Date getExpirationDate() {
         return expirationDate;
