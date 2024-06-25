@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="Styles/login.css"/>
+    <link rel="stylesheet" type="text/css" href="Styles/addProduct.css"/>
+    <script type="module" src="Scripts/Controller/addProduct.js"></script>
+    <script type="module" src="Scripts/Service/ProductService.js"></script>
+</head>
+<body>
+    <div class="container">
+        <form class="productEdit" id="editForm">
+            <label for="id">ID (6 numbers):</label>
+            <input type="text" id="id" name="id" required minlength="6" maxlength="6">
+
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="price">Price:</label>
+            <input type="number" id="price" name="price" step="0.01" required>
+
+            <label for="stock">Stock:</label>            
+            <input type="number" id="stock" name="stock" value="0" required>
+
+            <label for="category">Category:</label> <br>
+            <select name="category" id="category"></select> <br>
+
+            <label for="date">Expiration date:</label> <br>
+            <input type="date" id="date" name="date" required>
+            <input class="submit" id="submitButton" type="submit" value="Submit">
+            <label id="messageLabel"></label>
+        </form>
+    </div>    
+</body>
+</html>

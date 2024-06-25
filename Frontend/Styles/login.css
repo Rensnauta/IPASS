@@ -36,6 +36,14 @@ input {
     max-width: 500px;
 }
 
+select {
+    text-transform: capitalize;
+    width: 100%;
+    padding: 10px 12px;
+    margin: 5px 0;
+    max-width: 500px;
+}
+
 #login {
     width: 100%;
     padding: 10px 0;
