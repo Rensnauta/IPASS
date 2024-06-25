@@ -10,7 +10,16 @@ function collectProductInfo() {
         const productNameAndId = div.querySelector('label').textContent.split(', '); // Assuming the format is "Name: productName, ID: productNr"
         const productNr = productNameAndId[1].replace('ID: ', '');
         const expirationDate = div.querySelector('input[type="date"]').value;
+        if (expirationDate === '' || new Date(expirationDate) < new Date()) {
+            document.getElementById('messageLabel').textContent = 'Please enter a valid expiration date.';
+            return;
+        }
         const expiredAmount = div.querySelector('input[type="number"]').value;
+        if (expiredAmount < 0) {
+            document.getElementById('messageLabel').textContent = 'Please enter a valid amount of expired products.';
+            return;
+        }
+        
 
         const productInfo = {
             productNr,
@@ -21,7 +30,7 @@ function collectProductInfo() {
         productsInfo.push(productInfo);
     });
 
-    return JSON.stringify(productsInfo); // Convert the array to a JSON string if needed
+    return productsInfo; // Convert the array to a JSON string if needed
 }
 
 window.onload = async function () {
@@ -49,6 +58,7 @@ window.onload = async function () {
         const amountInput = document.createElement('input');
         amountInput.type = 'number';
         amountInput.name = 'expiredAmount';
+        amountInput.value = 0;
         productDiv.appendChild(amountInput);
 
         // Append the product div to the container

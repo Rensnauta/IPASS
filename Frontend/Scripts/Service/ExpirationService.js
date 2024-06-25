@@ -12,6 +12,7 @@ export class ExpirationService {
     }
 
     sendExpiredProducts(expiredProducts) {
+        console.log(JSON.stringify(expiredProducts));
         fetch('http://localhost:8080/api/products/expired', {
             method: 'POST',
             headers: {
