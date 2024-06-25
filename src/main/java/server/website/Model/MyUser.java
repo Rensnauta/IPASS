@@ -11,7 +11,7 @@ public class MyUser implements Principal {
     private static List<MyUser> users = new ArrayList<>();
     public MyUser(String name, String password) {
         this.name = name;
-        this.role = "test";
+        this.role = "role";
         this.password = password;
         users.add(this);
     }

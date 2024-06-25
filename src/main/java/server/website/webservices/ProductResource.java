@@ -5,6 +5,7 @@ import org.json.JSONObject;
 import server.website.DAO.ProductDAO;
 import server.website.Model.Product;
 
+import javax.annotation.security.RolesAllowed;
 import javax.json.*;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
@@ -17,6 +18,7 @@ import java.util.List;
 import static server.website.DAO.ProductDAO.getExpiredOrExpiringProducts;
 
 @Path("/products")
+@RolesAllowed("role")
 public class ProductResource {
     @Path("{productNr}")
     @GET

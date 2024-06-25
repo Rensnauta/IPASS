@@ -7,6 +7,7 @@ import io.jsonwebtoken.impl.crypto.MacProvider;
 import server.website.Model.LogonRequest;
 import server.website.Model.MyUser;
 
+import javax.annotation.security.PermitAll;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -19,6 +20,7 @@ import java.util.Map;
 /**
  * The type Authentication resource.
  */
+@PermitAll
 @Path("authentication")
 public class AuthenticationResource {
     /**
