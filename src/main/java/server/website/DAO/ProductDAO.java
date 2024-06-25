@@ -15,6 +15,7 @@ import java.util.List;
 
 public class ProductDAO {
     public static void retrieveProducts() {
+        Product.removeAllProducts();
         Connection con = null;
         try {
             con = DataSourceProvider.getDataSource().getConnection();
@@ -45,7 +46,7 @@ public class ProductDAO {
             con = DataSourceProvider.getDataSource().getConnection();
             Statement st = con.createStatement();
             st.executeUpdate("UPDATE productdata SET productname = '" + product.getName() + "', " +
-                    "expirationdate = '" + new java.sql.Date(product.getExpirationDate().getTime()) + "', " +
+                    "expirationdate = '" + new Date(product.getExpirationDate().getTime()) + "', " +
                     "stock = " + product.getStock() + ", " +
                     "price = " + product.getPrice() +
                     " WHERE productnr = " + product.getProductNr());

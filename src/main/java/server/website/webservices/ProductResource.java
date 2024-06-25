@@ -1,5 +1,7 @@
 package server.website.webservices;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import org.json.JSONArray;
 import org.json.JSONObject;
 import server.website.DAO.ProductDAO;
 import server.website.Model.Product;
@@ -10,6 +12,7 @@ import javax.ws.rs.core.Response;
 import java.io.StringReader;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -85,5 +88,30 @@ public class ProductResource {
     @Path("expired")
     @POST
     @Consumes("application/json")
-
+    public Response updateExpired(String json) {
+        try (JsonReader jsonReader = Json.createReader(new StringReader(json))) {
+            JsonArray jsonArray = jsonReader.readArray();
+            for (JsonValue value : jsonArray) {
+                JsonObject jsonObject = value.asJsonObject();
+                String productNr = jsonObject.getString("productNr");
+                String expirationDate = jsonObject.getString("expirationDate");
+                int expiredAmount = jsonObject.getInt("expiredAmount");
+                Product product = Product.getProductByProductNr(Integer.parseInt(productNr));
+                if (product == null) {
+                    return Response.status(Response.Status.NOT_FOUND).entity("Product not found").build();
+                }
+                int newStock = product.getStock() - expiredAmount;
+                product.setStock(newStock);
+                SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+                Date date = formatter.parse(expirationDate);
+                product.setExpirationDate(date);
+                ProductDAO.updateProduct(product);
+            }
+            return Response.ok().build();
+        } catch (JsonException e) {
+            return Response.status(Response.Status.BAD_REQUEST).entity("Invalid JSON").build();
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
