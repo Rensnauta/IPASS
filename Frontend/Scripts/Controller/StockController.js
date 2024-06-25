@@ -20,7 +20,7 @@ class StockController {
                 return response.json();
             })
             .then(jsonData => {
-                productData = jsonData
+                let productData = jsonData; // Declare productData here
                 stockview.drawTable(productData)
                 productData.forEach(item => {
                     new Product(item.productNr, item.productName, item.expirationDate, item.stock, item.category, item.price)

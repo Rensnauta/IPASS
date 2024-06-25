@@ -1,7 +1,12 @@
 export class ExpirationService {
     async getProductsAboutToExpire() {
         try {
-            const response = await fetch('http://localhost:8080/api/products/expiring');
+            const response = await fetch('http://localhost:8080/api/products/expiring', {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ` + window.sessionStorage.getItem('myJWT')
+                }
+            });
             const data = await response.json();
             return data;
         } catch (error) {
@@ -17,6 +22,7 @@ export class ExpirationService {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
+                'Authorization': `Bearer ` + window.sessionStorage.getItem('myJWT')
             },
             body: JSON.stringify(expiredProducts),
         })

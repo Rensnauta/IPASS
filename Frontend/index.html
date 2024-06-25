@@ -18,7 +18,7 @@
     </form>
     </div>
     <script>
-        function login() {
+    function login() {
         let formData = new FormData(document.querySelector("#loginform"))
         let jsonRequestBody = {}
         formData.forEach((value, key) => jsonRequestBody[key] = value)
@@ -29,20 +29,24 @@
                 'Content-Type': 'application/json'
             }, 
             body: JSON.stringify(jsonRequestBody)})
-        .then(function (response) {
+        .then(response => {
             if(response.ok) {
-                document.location.href = 'homepage.html'
-                return response.json()
+                return response.json().then(myJson => {
+                    window.sessionStorage.setItem("myJWT", myJson.JWT);
+                    document.location.href = 'homepage.html';
+                });
+            } else if(response.status === 401) {
+                document.getElementById("messagelabel").innerHTML = 'Incorrect username/password';
+                // Explicitly throw an error or return a rejected promise to stop the chain
+                return Promise.reject('Unauthorized');
+            } else {
+                // Handle other errors or statuses as needed
+                return Promise.reject('Some other error');
             }
-            else if(response.status === 401) {
-                document.getElementById("messagelabel").innerHTML = 'Incorrect username/password'
-            }
-            
         })
-        .then(myJson => window.sessionStorage.setItem("myJWT", myJson.JWT))
         .catch(error => console.error(error));
-        }
-        document.querySelector("#login").addEventListener("click", login)
+    }
+    document.querySelector("#login").addEventListener("click", login)
     </script>
 </body>
 </html>

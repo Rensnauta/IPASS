@@ -1,7 +1,11 @@
 export class ProductService {
     async fetchProductByNr(productNr) {
         try {
-            const response = await fetch(`http://localhost:8080/api/products/${productNr}`);
+            const response = await fetch(`http://localhost:8080/api/products/${productNr}`, {
+                headers: {
+                    'Authorization': `Bearer ` + window.sessionStorage.getItem('myJWT')
+                }
+            });
             if (!response.ok) {
                 throw new Error(`HTTP error! Status: ${response.status}`);
             }
@@ -19,6 +23,7 @@ export class ProductService {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Authorization': `Bearer ` + window.sessionStorage.getItem('myJWT')
                 },
                 body: JSON.stringify(productData),
             });
@@ -37,6 +42,7 @@ export class ProductService {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Authorization': `Bearer ` + window.sessionStorage.getItem('myJWT')
                 },
                 body: JSON.stringify(productData),
             });
