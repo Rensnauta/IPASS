@@ -16,8 +16,6 @@ public class MyServletContextListener implements ServletContextListener {
     @Override
     public void contextInitialized(ServletContextEvent sce) {
         new MyUser("test", "password");
-        List<Product> products = ProductDAO.getExpiredOrExpiringProducts();
-        System.out.println("Expired or expiring products: " + products.size());
         CategoryDAO.retrieveCategories();
         System.out.println("Application started");
     }
