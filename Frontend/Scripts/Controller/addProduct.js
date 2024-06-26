@@ -31,8 +31,7 @@ function collectFormData() {
 document.getElementById('submitButton').addEventListener('click', async (event) => {
     event.preventDefault();
     const formData = collectFormData();
-    await service.newProduct(formData);
-    
+    await service.newProduct(formData);    
 });
 
  window.onload = async () => {
